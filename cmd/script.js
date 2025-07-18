@@ -67,3 +67,52 @@ function submitComplaint() {
   document.getElementById("complaintFormContent").classList.add("hidden");
   document.getElementById("successMessage").classList.remove("hidden");
 }
+document
+  .getElementById("studentRegisterForm")
+  .addEventListener("submit", function (e) {
+    e.preventDefault(); // prevent default submission
+
+    const password = document.getElementById("student-password").value;
+    const confirmPassword = document.getElementById(
+      "student-confirm-password"
+    ).value;
+
+    if (password !== confirmPassword) {
+      alert("Passwords do not match. Please try again.");
+      return;
+    }
+    alert("Registration successful!");
+  });
+const registerForm = document.getElementById("student-register-form");
+const passwordField = document.getElementById("student-password");
+const confirmPasswordField = document.getElementById(
+  "student-confirm-password"
+);
+const errorMessage = document.getElementById("password-error");
+
+registerForm.addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  const password = passwordField.value.trim();
+  const confirmPassword = confirmPasswordField.value.trim();
+
+  if (password !== confirmPassword) {
+    errorMessage.style.display = "block";
+    passwordField.value = "";
+    confirmPasswordField.value = "";
+    passwordField.focus();
+    return;
+  }
+
+  errorMessage.style.display = "none";
+  alert("Registration successful!");
+  // Add your saving logic here (JSON/database)
+});
+
+passwordField.addEventListener("input", () => {
+  errorMessage.style.display = "none";
+});
+
+confirmPasswordField.addEventListener("input", () => {
+  errorMessage.style.display = "none";
+});
