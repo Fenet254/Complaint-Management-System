@@ -1,165 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Complaint Management System</title>
-    <link rel="stylesheet" href="./style.css" />
-  </head>
-  <body>
-    <!-- HERO -->
-    <section id="hero" class="hero">
-      <h1>Speak Up. Be Heard.</h1>
-      <p>We value your voice — share your concerns openly.</p>
-      <h3>Are you a Student or Staff?</h3>
-      <div class="role-buttons">
-        <button onclick="showStudentLogin()">I'm a Student</button>
-        <button onclick="showStaffLogin()">I'm a Staff</button>
-      </div>
-    </section>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Complaint Management System - Home</title>
+  <link rel="stylesheet" href="./public/style.css" />
+ 
+</head>
+<body >
+  <section class="hero animate " id="hero">
+    <h1>Speak Up. Be Heard.</h1>
+    <h1>We value your voice — share your concerns openly.</h1>
+    <h3>Are you a Student or Staff?</h3>
+  
+   <div class="hero-buttons">
+  <button onclick="location.href='views/studentDashboard.html'">I am Student</button>
+  <button onclick="location.href='views/staffDashboard.html'">I am Staff</button>
+  <button onclick="location.href='views/adminDashboard.html'">Admin Dashboard</button>
 
-    <!-- STUDENT LOGIN FORM -->
-    <section id="studentLoginForm" class="hidden">
-      <h2>Student Login</h2>
-      <form
-        onsubmit="event.preventDefault(); showComplaintForm(); saveUserData('student')"
-      >
-        <div class="form-group">
-          <label>Email</label><input type="email" required />
-        </div>
-        <div class="form-group">
-          <label>Password</label><input type="password" required />
-        </div>
-        <div class="form-group">
-          <label>Security Question: What's your favorite color?</label
-          ><input type="text" required />
-        </div>
-        <button type="submit" class="submit-btn">Login</button>
-      </form>
-      <div class="info-text" onclick="showStudentRegister()">
-        Don't have an account? Register here
-      </div>
-      <br /><button onclick="goBack()" class="back-btn">Back to Home</button>
-    </section>
 
-    <!-- STUDENT REGISTER FORM -->
-    <section id="studentRegisterForm" class="hidden">
-      <h2>Student Registration</h2>
-      <form
-        onsubmit="event.preventDefault(); showComplaintForm(); saveUserData('student')"
-      >
-        <div class="form-group">
-          <label>Full Name</label><input type="text" required />
-        </div>
-        <div class="form-group">
-          <label>Student ID</label><input type="text" required />
-        </div>
-        <div class="form-group">
-          <label>Department</label><input type="text" required />
-        </div>
-        <div class="form-group">
-          <label>Email</label><input type="email" required />
-        </div>
-        <div class="form-group">
-          <input type="text">Password</label><input type="password"id="student-password" required />
-        </div>
-        <div class="form-group">  <input type="password" id="student-confirm-password" placeholder="Confirm Password" required />
-        <p id="password-error" class="error-message">Your passwords do not match. Please enter the correct password.</p>
-        </div>
-        <button type="submit" class="submit-btn">Register & Continue</button>
-      </form>
-      <br /><button onclick="goBack()" class="back-btn">Back to Home</button>
-    </section>
 
-    <!-- STAFF LOGIN FORM -->
-    <section id="staffLoginForm" class="hidden">
-      <h2>Staff Login</h2>
-      <form
-        onsubmit="event.preventDefault(); showComplaintForm(); saveUserData('staff')"
-      >
-        <div class="form-group">
-          <label>Staff ID</label><input type="text" required />
-        </div>
-        <div class="form-group">
-          <label>Email</label><input type="email" required />
-        </div>
-        <div class="form-group">
-          <label>Password</label><input type="password" required />
-        </div>
-        <div class="form-group">
-          <label>Department</label>
-          <select required>
-            <option value="">--Select--</option>
-            <option value="IT">IT</option>
-            <option value="HR">HR</option>
-            <option value="Finance">Finance</option>
-          </select>
-        </div>
-        <button type="submit" class="submit-btn">Login</button>
-      </form>
-      <br /><button onclick="goBack()" class="back-btn">Back to Home</button>
-    </section>
+</div>
 
-    <!-- COMPLAINT FORM -->
-    <section id="complaintForm" class="hidden">
-      <h2>Submit Your Complaint</h2>
-      <form
-        onsubmit="event.preventDefault(); alert('Thank you for your complaint!')"
-      >
-        <div class="form-group">
-          <label>Title</label><input type="text" required />
-        </div>
-        <div class="form-group">
-          <label>Message</label><textarea rows="5" required></textarea>
-        </div>
-        <button type="submit" class="submit-btn">Submit Complaint</button>
-      </form>
-      <br /><button onclick="goBack()" class="back-btn">Back to Home</button>
-    </section>
-    <section id="complaintForm" class="complaint-section hidden">
-      <h2>Submit Your Complaint</h2>
-      <form
-        id="complaintFormContent"
-        onsubmit="event.preventDefault(); submitComplaint();"
-      >
-        <div class="form-group">
-          <label for="category">Select Complaint Category</label>
-          <select id="category" required>
-            <option value="" disabled selected>Choose a category</option>
-            <option value="Food">Food</option>
-            <option value="Cleanliness">Cleanliness</option>
-            <option value="Marks">Marks</option>
-            <option value="Teachers">Teachers</option>
-            <option value="Dormitory">Dormitory</option>
-            <option value="Library">Library</option>
-            <option value="Other">Other</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="message">Write your complaint</label>
-          <textarea
-            id="message"
-            rows="5"
-            required
-            placeholder="Type your concern here..."
-          ></textarea>
-        </div>
 
-        <button type="submit" class="submit-btn">Submit Complaint</button>
-      </form>
 
-      <div
-        id="successMessage"
-        class="hidden"
-        style="margin-top: 20px; color: green; font-weight: bold"
-      >
-        ✅ Thank you for your complaint! It has been submitted successfully.
-      </div>
+  </section>
+  <!-- Link JavaScript -->
+<script src="./public/script.js"></script>
 
-      <br />
-      <button onclick="goBack()" class="back-btn">Back to Home</button>
-    </section>
-
-    <script src="./script.js"></script>
-  </body>
+</body>
 </html>

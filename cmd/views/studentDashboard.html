@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Student Dashboard</title>
+  <link rel="stylesheet" href="../public/style.css" />
+</head>
+<body>
+  <!-- STUDENT LOGIN FORM -->
+  <section id="studentLoginForm" class="visible">
+    <h2>Student Login</h2>
+    <form id="studentLoginFormElem">
+      <div class="form-group">
+        <label>Email</label><input type="email" id="studentLoginEmail" required />
+      </div>
+      <div class="form-group">
+        <label>Password</label><input type="password" id="studentLoginPassword" required />
+      </div>
+      <button type="submit" class="submit-btn">Login</button>
+    </form>
+<p>Don't have an account? <a href="#" id="showstudentRegisterForm">Register</a></p>
+
+  </section>
+
+ <section id="studentRegisterForm" class="hidden">
+  <h2>Student Registration</h2>
+  <form id="studentRegisterFormElem">
+    <div class="form-group">
+        <label>Full Name</label><input type="text" id="studentRegName" required />
+      </div>
+      <div class="form-group">
+        <label>Student ID</label><input type="text" id="studentRegId" required />
+      </div>
+      <div class="form-group">
+        <label>Department</label><input type="text" id="studentRegDept" required />
+      </div>
+      <div class="form-group">
+        <label>Email</label><input type="email" id="studentRegEmail" required />
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="studentRegPassword" required />
+      </div>
+      <div class="form-group">
+        <label>Confirm Password</label>
+        <input type="password" id="studentRegConfirmPassword" required />
+        <p id="studentPasswordError" class="error-message">Your passwords do not match.</p>
+      </div>
+   <button type="submit" class="submit-btn">Register & Continue</button>
+    </form>
+  </section>
+
+  <section id="studentComplaintSection" class="hidden complaint-section">
+    <h2>Submit Your Complaint</h2>
+   <form id="studentComplaintForm">
+      <div class="form-group">
+        <label for="category">Select Complaint Category</label>
+        <select id="studentComplaintCategory" required>
+          <option value="" disabled selected>Choose a category</option>
+          <option value="Food">Food</option>
+          <option value="Cleanliness">Cleanliness</option>
+          <option value="Marks">Marks</option>
+          <option value="Teachers">Teachers</option>
+          <option value="Dormitory">Dormitory</option>
+          <option value="Library">Library</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="message">Write your complaint</label>
+        <textarea id="studentComplaintMessage" rows="5" required placeholder="Type your concern here..."></textarea>
+      </div>
+      <button type="submit" class="submit-btn">Submit Complaint</button>
+    </form>
+
+<div id="studentSuccessMessage" class="hidden" style="margin-top: 20px; color: green; font-weight: bold">
+  ✅ Thank you for your complaint! It has been submitted successfully.
+</div>
+
+
+<div id="backToHomeBtn" class="hidden" style="margin-top: 10px;">
+  <button onclick="goToHomePage()">⬅ Back to Home</button>
+</div>
+
+
+  </section>
+
+  <script src="../public/script.js"></script>
+</body>
+</html>
