@@ -7,55 +7,63 @@
   <link rel="stylesheet" href="../public/style.css" />
 </head>
 <body>
-  <!-- STUDENT LOGIN FORM -->
-  <section id="studentLoginForm" class="visible">
+  <div id="student-dashboard">
+  <section id="studentLoginForm">
     <h2>Student Login</h2>
     <form id="studentLoginFormElem">
       <div class="form-group">
-        <label>Email</label><input type="email" id="studentLoginEmail" required />
+        <label for="studentLoginEmail">Student ID</label>
+        <input type="text" id="studentLoginEmail" placeholder="Enter your student ID" required />
       </div>
       <div class="form-group">
-        <label>Password</label><input type="password" id="studentLoginPassword" required />
+        <label for="studentLoginPassword">Password</label>
+        <input type="password" id="studentLoginPassword" placeholder="Enter your password" required />
       </div>
       <button type="submit" class="submit-btn">Login</button>
     </form>
-<p>Don't have an account? <a href="#" id="showstudentRegisterForm">Register</a></p>
-
+    <p class="switch-link">Don't have an account? <a href="#" id="showstudentRegisterForm">Register here</a></p>
   </section>
 
- <section id="studentRegisterForm" class="hidden">
-  <h2>Student Registration</h2>
-  <form id="studentRegisterFormElem">
-    <div class="form-group">
-        <label>Full Name</label><input type="text" id="studentRegName" required />
+  <!-- STUDENT REGISTRATION FORM -->
+  <section id="studentRegisterForm" class="hidden">
+    <h2>Student Registration</h2>
+    <form id="studentRegisterFormElem">
+      <div class="form-group">
+        <label for="studentRegName">Full Name</label>
+        <input type="text" id="studentRegName" placeholder="Enter your full name" required />
       </div>
       <div class="form-group">
-        <label>Student ID</label><input type="text" id="studentRegId" required />
+        <label for="studentRegId">Student ID</label>
+        <input type="text" id="studentRegId" placeholder="Enter your student ID" required />
       </div>
       <div class="form-group">
-        <label>Department</label><input type="text" id="studentRegDept" required />
+        <label for="studentRegDept">Department</label>
+        <input type="text" id="studentRegDept" placeholder="Enter your department" required />
       </div>
       <div class="form-group">
-        <label>Email</label><input type="email" id="studentRegEmail" required />
+        <label for="studentRegEmail">Email</label>
+        <input type="email" id="studentRegEmail" placeholder="Enter your email" required />
       </div>
       <div class="form-group">
-        <label>Password</label>
-        <input type="password" id="studentRegPassword" required />
+        <label for="studentRegPassword">Password</label>
+        <input type="password" id="studentRegPassword" placeholder="Enter your password" required />
       </div>
       <div class="form-group">
-        <label>Confirm Password</label>
-        <input type="password" id="studentRegConfirmPassword" required />
+        <label for="studentRegConfirmPassword">Confirm Password</label>
+        <input type="password" id="studentRegConfirmPassword" placeholder="Confirm your password" required />
         <p id="studentPasswordError" class="error-message">Your passwords do not match.</p>
       </div>
-   <button type="submit" class="submit-btn">Register & Continue</button>
+      <button type="submit" class="submit-btn">Register & Continue</button>
     </form>
+    <p class="switch-link">Already have an account? <a href="#" id="showStudentLoginFromRegister">Login here</a></p>
   </section>
 
-  <section id="studentComplaintSection" class="hidden complaint-section">
+  <!-- STUDENT COMPLAINT FORM -->
+  <section id="studentComplaintSection" class="hidden">
     <h2>Submit Your Complaint</h2>
-   <form id="studentComplaintForm">
+    <form id="studentComplaintForm">
       <div class="form-group">
-        <label for="category">Select Complaint Category</label>
+        <label for="studentComplaintCategory">Select Complaint Category</label>
         <select id="studentComplaintCategory" required>
           <option value="" disabled selected>Choose a category</option>
           <option value="Food">Food</option>
@@ -68,23 +76,18 @@
         </select>
       </div>
       <div class="form-group">
-        <label for="message">Write your complaint</label>
-        <textarea id="studentComplaintMessage" rows="5" required placeholder="Type your concern here..."></textarea>
+        <label for="studentComplaintMessage">Write your complaint</label>
+        <textarea id="studentComplaintMessage" rows="5" placeholder="Type your concern here..." required></textarea>
       </div>
       <button type="submit" class="submit-btn">Submit Complaint</button>
     </form>
-
-<div id="studentSuccessMessage" class="hidden" style="margin-top: 20px; color: green; font-weight: bold">
-  ✅ Thank you for your complaint! It has been submitted successfully.
-</div>
-
-
-<div id="backToHomeBtn" class="hidden" style="margin-top: 10px;">
-  <button onclick="goToHomePage()">⬅ Back to Home</button>
-</div>
-
-
+    <div id="studentSuccessMessage" class="hidden"></div>
+    <div id="backToHomeBtn" class="hidden">
+      <button>⬅ Back to Home</button>
+    </div>
   </section>
+
+  </div>
 
   <script src="../public/script.js"></script>
 </body>

@@ -1,228 +1,263 @@
-function hideAll() {
+// UTILITIES: show/hide sections
+function hideAllSections() {
   document.querySelectorAll("section").forEach((sec) => {
     sec.classList.add("hidden");
     sec.classList.remove("animate");
   });
 }
-
-function goBack() {
-  hideAll();
-  const hero = document.getElementById("hero");
-  hero.classList.remove("hidden");
-  hero.classList.add("animate");
+function showSection(id) {
+  hideAllSections();
+  const el = document.getElementById(id);
+  el.classList.remove("hidden");
+  el.classList.add("animate");
 }
 
-function showStudentLogin() {
-  hideAll();
+// Back to home button handler
+function goToHomePage() {
+  // Clear stored user info on home (optional)
+  localStorage.removeItem("user");
+  showSection("studentLoginForm");
+  hideBackToHome();
+  hideSuccessMessage();
+}
+
+// Show/hide back to home button
+function showBackToHome() {
+  document.getElementById("backToHomeBtn").classList.remove("hidden");
+}
+function hideBackToHome() {
+  document.getElementById("backToHomeBtn").classList.add("hidden");
+}
+
+// Show/hide success message
+function showSuccessMessage(msg = "") {
+  const el = document.getElementById("studentSuccessMessage");
+  el.textContent =
+    msg ||
+    "✅ Thank you for your complaint! It has been submitted successfully.";
+  el.classList.remove("hidden");
+}
+function hideSuccessMessage() {
+  document.getElementById("studentSuccessMessage").classList.add("hidden");
+}
+
+// Show/hide password mismatch error on registration
+function showPasswordError(show) {
+  const el = document.getElementById("studentPasswordError");
+  el.style.display = show ? "block" : "none";
+}
+
+// Store user info on login or registration
+function saveUser(user) {
+  localStorage.setItem("user", JSON.stringify(user));
+}
+// Get stored user info
+function getUser() {
+  return JSON.parse(localStorage.getItem("user"));
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  // Initial view: show login form
+  showSection("studentLoginForm");
+  hideBackToHome();
+  hideSuccessMessage();
+  showPasswordError(false);
+
+  // Link to show registration form from login form
   document
-    .getElementById("studentLoginForm")
-    .classList.replace("hidden", "animate");
-}
+    .getElementById("showstudentRegisterForm")
+    .addEventListener("click", (e) => {
+      e.preventDefault();
+      showSection("studentRegisterForm");
+    });
 
-function showStudentRegister() {
-  hideAll();
+  // Back to Home button click
   document
-    .getElementById("studentRegisterForm")
-    .classList.replace("hidden", "animate");
-}
+    .getElementById("backToHomeBtn")
+    .querySelector("button")
+    .addEventListener("click", goToHomePage);
 
-function showStaffLogin() {
-  hideAll();
+  // LOGIN form submit
   document
-    .getElementById("staffLoginForm")
-    .classList.replace("hidden", "animate");
-}
+    .getElementById("studentLoginFormElem")
+    .addEventListener("submit", async (e) => {
+      e.preventDefault();
 
-function showStaffRegister() {
-  hideAll();
+      const user_id = document.getElementById("studentLoginEmail").value.trim();
+      const password = document.getElementById("studentLoginPassword").value;
+      const role = "student";
+
+      if (!user_id || !password) {
+        alert("Please fill in both email and password.");
+        return;
+      }
+
+      try {
+        const res = await fetch("http://localhost:3000/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ user_id, password, role }),
+        });
+        const data = await res.json();
+
+        if (res.ok) {
+          // Save user info locally
+          saveUser({ user_id, role });
+
+          // Show complaint form
+          showSection("studentComplaintSection");
+          showBackToHome();
+          hideSuccessMessage();
+        } else {
+          alert(data.error || "Login failed.");
+        }
+      } catch (err) {
+        console.error("Login error", err);
+        alert("Server error during login.");
+      }
+    });
+
+  // REGISTRATION form submit
   document
-    .getElementById("staffRegisterForm")
-    .classList.replace("hidden", "animate");
-}
+    .getElementById("studentRegisterFormElem")
+    .addEventListener("submit", async (e) => {
+      e.preventDefault();
 
-function showStudentComplaintForm() {
-  hideAll();
+      const name = document.getElementById("studentRegName").value.trim();
+      const user_id = document.getElementById("studentRegId").value.trim();
+      const department = document.getElementById("studentRegDept").value.trim();
+      const email = document.getElementById("studentRegEmail").value.trim();
+      const password = document.getElementById("studentRegPassword").value;
+      const confirmPassword = document.getElementById(
+        "studentRegConfirmPassword"
+      ).value;
+      const role = "student";
+
+      if (password !== confirmPassword) {
+        showPasswordError(true);
+        return;
+      }
+      showPasswordError(false);
+
+      if (!name || !user_id || !department || !email || !password) {
+        alert("Please fill all registration fields.");
+        return;
+      }
+
+      try {
+        const res = await fetch("http://localhost:3000/register", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ user_id, password, role, name, department }),
+        });
+        const data = await res.json();
+
+        if (res.ok) {
+          alert("Registration successful! Please login.");
+          showSection("studentLoginForm");
+        } else {
+          alert(data.error || "Registration failed.");
+        }
+      } catch (err) {
+        console.error("Registration error", err);
+        alert("Server error during registration.");
+      }
+    });
+
+  // COMPLAINT form submit
   document
     .getElementById("studentComplaintForm")
-    .classList.replace("hidden", "animate");
-}
-
-function showStaffComplaintForm() {
-  hideAll();
-  document
-    .getElementById("staffComplaintForm")
-    .classList.replace("hidden", "animate");
-}
-
-function showAdminDashboard() {
-  hideAll();
-  document
-    .getElementById("adminDashboard")
-    .classList.replace("hidden", "animate");
-}
-
-function saveUserData(role, name) {
-  const data = { role, name, timestamp: new Date().toISOString() };
-  localStorage.setItem("user", JSON.stringify(data));
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-  // Student Registration Validation
-  const studentRegisterForm = document.getElementById("student-register-form");
-  const studentPassword = document.getElementById("student-password");
-  const studentConfirm = document.getElementById("student-confirm-password");
-  const studentError = document.getElementById("password-error");
-
-  if (studentRegisterForm) {
-    studentRegisterForm.addEventListener("submit", (e) => {
+    .addEventListener("submit", async (e) => {
       e.preventDefault();
-      if (studentPassword.value !== studentConfirm.value) {
-        studentError.style.display = "block";
-        alert("Passwords do not match.");
-        return;
-      }
-      studentError.style.display = "none";
-      alert("Registration successful!");
-      saveUserData("student", document.getElementById("student-name").value);
-      showStudentComplaintForm();
-    });
-  }
 
-  // Staff Registration Validation
-  const staffRegisterForm = document.getElementById("staff-register-form");
-  const staffPassword = document.getElementById("staff-password");
-  const staffConfirm = document.getElementById("staff-confirm-password");
-  const staffError = document.getElementById("staff-password-error");
-
-  if (staffRegisterForm) {
-    staffRegisterForm.addEventListener("submit", (e) => {
-      e.preventDefault();
-      if (staffPassword.value !== staffConfirm.value) {
-        staffError.style.display = "block";
-        alert("Passwords do not match.");
-        return;
-      }
-      staffError.style.display = "none";
-      alert("Registration successful!");
-      saveUserData("staff", document.getElementById("staff-name").value);
-      showStaffComplaintForm();
-    });
-  }
-
-  // Submit Student Complaint
-  const studentSubmitBtn = document.getElementById("student-submit-button");
-  if (studentSubmitBtn) {
-    studentSubmitBtn.addEventListener("click", function (e) {
-      e.preventDefault();
-      const name = document.getElementById("student-name").value;
-      const department = document.getElementById("student-department").value;
-      const id = document.getElementById("student-id").value;
-      const category = document.getElementById("complaint-category").value;
-      const message = document.getElementById("student-message").value;
-
-      fetch("http://localhost:3000/submitComplaint", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name,
-          department,
-          user_id: id,
-          category,
-          message,
-          role: "student",
-        }),
-      })
-        .then((res) => res.text())
-        .then((data) => alert(data))
-        .catch((err) => console.error(err));
-    });
-  }
-
-  // Submit Staff Complaint
-  const staffSubmitBtn = document.getElementById("staff-submit-button");
-  if (staffSubmitBtn) {
-    staffSubmitBtn.addEventListener("click", function (e) {
-      e.preventDefault();
-      const name = document.getElementById("staff-name").value;
-      const department = document.getElementById("staff-department").value;
-      const id = document.getElementById("staff-id").value;
       const category = document.getElementById(
-        "staff-complaint-category"
+        "studentComplaintCategory"
       ).value;
-      const message = document.getElementById("staff-message").value;
+      const message = document
+        .getElementById("studentComplaintMessage")
+        .value.trim();
 
-      fetch("http://localhost:3000/submitComplaint", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name,
-          department,
-          user_id: id,
-          category,
-          message,
-          role: "staff",
-        }),
-      })
-        .then((res) => res.text())
-        .then((data) => alert(data))
-        .catch((err) => console.error(err));
+      if (!category || !message) {
+        alert("Please fill all complaint fields.");
+        return;
+      }
+
+      const user = getUser();
+      if (!user) {
+        alert("User not logged in. Please login first.");
+        showSection("studentLoginForm");
+        hideBackToHome();
+        return;
+      }
+
+      const name = user.name || "Anonymous"; // optionally store name in localStorage on login/register
+      const department = user.department || "Unknown"; // same as above
+      const user_id = user.user_id;
+      const role = user.role;
+
+      try {
+        const res = await fetch("http://localhost:3000/submitComplaint", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name,
+            department,
+            user_id,
+            category,
+            message,
+            role,
+          }),
+        });
+        const data = await res.json();
+
+        if (res.ok) {
+          showSuccessMessage(data.message);
+          showBackToHome();
+          document.getElementById("studentComplaintForm").reset();
+        } else {
+          alert(data.error || "Failed to submit complaint.");
+        }
+      } catch (err) {
+        console.error("Complaint submission error", err);
+        alert("Server error during complaint submission.");
+      }
     });
-  }
 });
-document.addEventListener("DOMContentLoaded", () => {
-  // SHOW REGISTER FORM WHEN LINK CLICKED
-  const registerLink = document.getElementById("showstudentRegisterForm");
-  const loginForm = document.getElementById("studentLoginForm");
-  const registerForm = document.getElementById("studentRegisterForm");
-
-  if (registerLink && loginForm && registerForm) {
-    registerLink.addEventListener("click", (e) => {
-      e.preventDefault();
-      loginForm.classList.add("hidden");
-      registerForm.classList.remove("hidden");
-      registerForm.classList.add("animate");
-    });
-  }
-
-  // The rest of your registration/submit logic remains unchanged...
-});
-document
-  .getElementById("studentRegisterFormElem")
-  .addEventListener("submit", function (e) {
-    e.preventDefault(); // Prevent page reload
-
-    // Optional: Add form validation here (e.g., required fields)
-
-    // Hide the register form
-    document
-      .getElementById("studentRegisterFormElem")
-      .parentElement.classList.add("hidden");
-
-    // Show the complaint section
-    document
-      .getElementById("studentComplaintSection")
-      .classList.remove("hidden");
+function hideAll() {
+  document.querySelectorAll("#student-dashboard section").forEach((sec) => {
+    sec.classList.add("hidden");
+    sec.classList.remove("animate");
   });
+}
 
-  window.onload = function () {
-    const complaintForm = document.getElementById("studentComplaintForm");
-    const complaintSection = document.getElementById("studentComplaintSection");
-    const successMessage = document.getElementById("studentSuccessMessage");
-    const backToHomeBtn = document.getElementById("backToHomeBtn");
-
-    complaintForm.addEventListener("submit", function (e) {
-      e.preventDefault(); // stop page reload
-
-      // Hide complaint form
-      complaintSection.classList.add("hidden");
-
-      // Show thank you + back button
-      successMessage.classList.remove("hidden");
-      backToHomeBtn.classList.remove("hidden");
-    });
-  };
-
-  function goToHomePage() {
-    window.location.href = "../index.html"; // change path if needed
+function showSection(id) {
+  hideAll();
+  const el = document.getElementById(id);
+  if (el) {
+    el.classList.remove("hidden");
+    el.classList.add("animate");
   }
+}
 
+// Example usage
+document.getElementById("showLoginBtn").addEventListener("click", () => {
+  showSection("studentLoginForm");
+});
+document.getElementById("showRegisterBtn").addEventListener("click", () => {
+  showSection("studentRegisterForm");
+});
+document.getElementById("showComplaintBtn").addEventListener("click", () => {
+  showSection("studentComplaintSection");
+});
+function hideAll() {
+  document.querySelectorAll("#student-dashboard section").forEach((sec) => {
+    sec.classList.add("hidden");
+    sec.classList.remove("animate");
+  });
+}
+function showStudentLogin() {
+  hideAll();
+  const el = document.getElementById("studentLoginForm");
+  el.classList.remove("hidden");
+  el.classList.add("animate");
+}

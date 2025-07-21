@@ -1,3 +1,4 @@
+/* GLOBAL/OTHER DASHBOARDS CSS */
 * {
   margin: 0;
   padding: 0;
@@ -8,9 +9,6 @@
 }
 .animate {
   animation: fadeIn 1s ease-in-out;
-}
-.hidden {
-  display: none;
 }
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(20px); }
@@ -25,6 +23,13 @@
   text-align: center;
   padding-top: 15vh;
   position: relative;
+}
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
 }
 #hero h1 {
   font-size: 3rem;
@@ -83,7 +88,10 @@ form {
   width: 90%;
   max-width: 450px;
 }
-form input,form select,form button,form textarea {
+form input,
+form select,
+form button,
+form textarea {
   width: 100%;
   padding: 12px;
   margin-top: 10px;
@@ -106,4 +114,133 @@ form button:hover {
   display: none;
   margin-top: -15px;
   margin-bottom: 10px;
+}
+button {
+  background-color: #007BFF;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  padding: 12px 25px;
+  font-size: 1.1rem;
+  transition: background-color 0.3s ease;
+}
+button:hover {
+  background-color: #0056b3;
+}
+/* STUDENT DASHBOARD ONLY - Scoped with #student-dashboard */
+#student-dashboard section {
+  padding: 40px 20px;
+  min-height: auto;
+  background: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.05);
+  width: 100%;
+  max-width: 450px;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+}
+
+#student-dashboard h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #222;
+}
+
+#student-dashboard form {
+  background: #fff;
+  padding: 25px 25px 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 12px rgba(0, 123, 255, 0.15);
+}
+
+#student-dashboard form input,
+#student-dashboard form select,
+#student-dashboard form textarea {
+  border: 1px solid #007BFF;
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 6px;
+  transition: border-color 0.3s ease;
+}
+
+#student-dashboard form input:focus,
+#student-dashboard form select:focus,
+#student-dashboard form textarea:focus {
+  border-color: #0056b3;
+  outline: none;
+  box-shadow: 0 0 8px #0056b3a0;
+}
+
+#student-dashboard form button.submit-btn {
+  background: #007BFF;
+  color: white;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 12px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: background-color 0.3s ease;
+}
+
+#student-dashboard form button.submit-btn:hover {
+  background: #0056b3;
+}
+
+#student-dashboard .error-message {
+  display: block;
+  color: #d93025;
+  font-weight: 600;
+  margin-top: -10px;
+  margin-bottom: 15px;
+  font-size: 0.9rem;
+}
+
+#student-dashboard #studentSuccessMessage {
+  color: #28a745;
+  font-weight: 700;
+  text-align: center;
+  font-size: 1.1rem;
+  margin-top: 15px;
+}
+
+#student-dashboard #backToHomeBtn {
+  margin-top: 20px;
+  text-align: center;
+}
+
+#student-dashboard #backToHomeBtn button {
+  background-color: #6c757d;
+  color: white;
+  border-radius: 6px;
+  padding: 10px 20px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#student-dashboard #backToHomeBtn button:hover {
+  background-color: #5a6268;
+}
+
+#student-dashboard p.switch-link {
+  text-align: center;
+  margin-top: 10px;
+}
+.hidden {
+  display: none !important;
+}
+
+#student-dashboard p.switch-link a {
+  color: #007BFF;
+  text-decoration: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+#student-dashboard p.switch-link a:hover {
+  text-decoration: underline;
 }
