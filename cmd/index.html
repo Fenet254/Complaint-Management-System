@@ -77,6 +77,32 @@
     .error {
       color: red;
     }
+
+    .pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 15px;
+      gap: 10px;
+    }
+
+    .pagination button {
+      padding: 6px 12px;
+      border: none;
+      background: #1d4ed8;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .pagination button:disabled {
+      background: #94a3b8;
+      cursor: not-allowed;
+    }
+
+    .pagination span {
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
@@ -105,21 +131,34 @@
     <div class="error" id="error" style="display:none;">Failed to load complaints.</div>
   </div>
 
+  <div class="pagination">
+    <button id="prevBtn">Previous</button>
+    <span id="pageInfo"></span>
+    <button id="nextBtn">Next</button>
+  </div>
+
   <script>
     const tbody = document.querySelector('#complaintTable tbody');
     const loading = document.getElementById('loading');
     const errorDiv = document.getElementById('error');
     const searchInput = document.getElementById('searchInput');
+    const pageInfo = document.getElementById('pageInfo');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
 
     let complaints = [];
+    let filteredComplaints = [];
     let sortDirection = 1;
+    let currentPage = 1;
+    const rowsPerPage = 5;
 
     // Fetch data
     fetch('http://localhost:3000/getComplaints')
       .then(res => res.json())
       .then(data => {
         complaints = data;
-        renderTable(complaints);
+        filteredComplaints = [...complaints];
+        renderTable();
         loading.style.display = "none";
       })
       .catch(err => {
@@ -128,10 +167,15 @@
         errorDiv.style.display = "block";
       });
 
-    // Render table rows
-    function renderTable(data) {
+    // Render table with pagination
+    function renderTable() {
       tbody.innerHTML = '';
-      data.forEach(row => {
+
+      const start = (currentPage - 1) * rowsPerPage;
+      const end = start + rowsPerPage;
+      const pageData = filteredComplaints.slice(start, end);
+
+      pageData.forEach(row => {
         const tr = document.createElement('tr');
         tr.innerHTML = `
           <td>${row.id}</td>
@@ -144,31 +188,59 @@
         `;
         tbody.appendChild(tr);
       });
+
+      updatePagination();
+    }
+
+    // Update pagination info
+    function updatePagination() {
+      const totalPages = Math.ceil(filteredComplaints.length / rowsPerPage);
+      pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+
+      prevBtn.disabled = currentPage === 1;
+      nextBtn.disabled = currentPage === totalPages || totalPages === 0;
     }
 
     // Search filter
     searchInput.addEventListener('input', e => {
       const searchValue = e.target.value.toLowerCase();
-      const filtered = complaints.filter(row =>
+      filteredComplaints = complaints.filter(row =>
         Object.values(row).some(val =>
           String(val).toLowerCase().includes(searchValue)
         )
       );
-      renderTable(filtered);
+      currentPage = 1;
+      renderTable();
     });
 
     // Sort functionality
     document.querySelectorAll('th').forEach(th => {
       th.addEventListener('click', () => {
         const column = th.getAttribute('data-column');
-        complaints.sort((a, b) => {
+        filteredComplaints.sort((a, b) => {
           if (a[column] < b[column]) return -1 * sortDirection;
           if (a[column] > b[column]) return 1 * sortDirection;
           return 0;
         });
         sortDirection *= -1;
-        renderTable(complaints);
+        renderTable();
       });
+    });
+
+    // Pagination buttons
+    prevBtn.addEventListener('click', () => {
+      if (currentPage > 1) {
+        currentPage--;
+        renderTable();
+      }
+    });
+
+    nextBtn.addEventListener('click', () => {
+      const totalPages = Math.ceil(filteredComplaints.length / rowsPerPage);
+      if (currentPage < totalPages) {
+        currentPage++;
+        renderTable();
+      }
     });
   </script>
 </body>
