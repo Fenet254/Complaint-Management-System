@@ -1,5 +1,5 @@
 <?php
-// studentRegister.php
+
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 
@@ -43,6 +43,7 @@ if (isset($data['name'], $data['student_id'], $data['department'], $data['email'
     http_response_code(400);
     echo json_encode(["success" => false, "error" => "Invalid input"]);
 }
+
 
 $conn->close();
 ?>
