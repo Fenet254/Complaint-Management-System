@@ -3,30 +3,173 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Complaint Management System - Home</title>
-  <link rel="stylesheet" href="./public/style.css" />
- 
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="../public/style.css" />
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      margin: 20px;
+      background: #f8fafc;
+      color: #1e293b;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .table-container {
+      overflow-x: auto;
+      background: white;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    th {
+      background: #1d4ed8;
+      color: white;
+      cursor: pointer;
+    }
+
+    tr:nth-child(even) {
+      background: #f1f5f9;
+    }
+
+    tr:hover {
+      background: #e0f2fe;
+      transition: 0.3s;
+    }
+
+    .search-box {
+      margin-bottom: 15px;
+      text-align: right;
+    }
+
+    .search-box input {
+      padding: 8px;
+      border: 1px solid #94a3b8;
+      border-radius: 5px;
+      width: 250px;
+    }
+
+    .loading, .error {
+      text-align: center;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    .loading {
+      color: #1d4ed8;
+    }
+
+    .error {
+      color: red;
+    }
+  </style>
 </head>
-<body >
-  <section class="hero animate " id="hero">
-    <h1>Speak Up. Be Heard.</h1>
-    <h1>We value your voice — share your concerns openly.</h1>
-    <h3>Are you a Student or Staff?</h3>
-  
-   <div class="hero-buttons">
-  <button onclick="location.href='views/studentDashboard.html'">I am Student</button>
-  <button onclick="location.href='views/staffDashboard.html'">I am Staff</button>
-  <button onclick="location.href='views/adminDashboard.html'">Admin Dashboard</button>
+<body>
+  <h2>Admin Dashboard - All Complaints</h2>
 
+  <div class="search-box">
+    <input type="text" id="searchInput" placeholder="Search complaints..." />
+  </div>
 
+  <div class="table-container">
+    <table id="complaintTable">
+      <thead>
+        <tr>
+          <th data-column="id">ID</th>
+          <th data-column="name">Name</th>
+          <th data-column="department">Department</th>
+          <th data-column="category">Category</th>
+          <th data-column="message">Message</th>
+          <th data-column="role">Role</th>
+          <th data-column="submitted_at">Date</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <div class="loading" id="loading">Loading complaints...</div>
+    <div class="error" id="error" style="display:none;">Failed to load complaints.</div>
+  </div>
 
-</div>
+  <script>
+    const tbody = document.querySelector('#complaintTable tbody');
+    const loading = document.getElementById('loading');
+    const errorDiv = document.getElementById('error');
+    const searchInput = document.getElementById('searchInput');
 
+    let complaints = [];
+    let sortDirection = 1;
 
+    // Fetch data
+    fetch('http://localhost:3000/getComplaints')
+      .then(res => res.json())
+      .then(data => {
+        complaints = data;
+        renderTable(complaints);
+        loading.style.display = "none";
+      })
+      .catch(err => {
+        console.error(err);
+        loading.style.display = "none";
+        errorDiv.style.display = "block";
+      });
 
-  </section>
-  
-<script src="./public/script.js"></script>
+    // Render table rows
+    function renderTable(data) {
+      tbody.innerHTML = '';
+      data.forEach(row => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${row.id}</td>
+          <td>${row.name}</td>
+          <td>${row.department}</td>
+          <td>${row.category}</td>
+          <td>${row.message}</td>
+          <td>${row.role}</td>
+          <td>${new Date(row.submitted_at).toLocaleString()}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
 
+    // Search filter
+    searchInput.addEventListener('input', e => {
+      const searchValue = e.target.value.toLowerCase();
+      const filtered = complaints.filter(row =>
+        Object.values(row).some(val =>
+          String(val).toLowerCase().includes(searchValue)
+        )
+      );
+      renderTable(filtered);
+    });
+
+    // Sort functionality
+    document.querySelectorAll('th').forEach(th => {
+      th.addEventListener('click', () => {
+        const column = th.getAttribute('data-column');
+        complaints.sort((a, b) => {
+          if (a[column] < b[column]) return -1 * sortDirection;
+          if (a[column] > b[column]) return 1 * sortDirection;
+          return 0;
+        });
+        sortDirection *= -1;
+        renderTable(complaints);
+      });
+    });
+  </script>
 </body>
 </html>
