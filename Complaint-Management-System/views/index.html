@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Student Complaints — University</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="../public/style.css">
+</head>
+<body>
+  <main class="container">
+    <h1>University Complaint Portal</h1>
+
+    <section class="card">
+      <h2>Submit a complaint</h2>
+      <form id="complaintForm">
+        <label>
+          Title
+          <input id="title" required maxlength="200" />
+        </label>
+
+        <label>
+          Type
+          <select id="typeSelect"></select>
+        </label>
+
+        <label>
+          Description
+          <textarea id="description" required rows="5"></textarea>
+        </label>
+
+        <label class="inline">
+          <input type="checkbox" id="anonymous" /> Submit anonymously
+        </label>
+
+        <div>
+          <button type="submit">Send Complaint</button>
+        </div>
+      </form>
+      <div id="formMsg" class="message"></div>
+    </section>
+
+    <section class="card">
+      <h2>All Complaints</h2>
+      <div class="controls">
+        <input id="search" placeholder="Search..." />
+        <select id="filterStatus">
+          <option value="">All statuses</option>
+          <option value="open">Open</option>
+          <option value="in_progress">In progress</option>
+          <option value="resolved">Resolved</option>
+          <option value="dismissed">Dismissed</option>
+        </select>
+      </div>
+
+      <table id="complaintsTable">
+        <thead>
+          <tr>
+            <th data-col="id">#</th>
+            <th data-col="title">Title</th>
+            <th data-col="type_name">Type</th>
+            <th data-col="status">Status</th>
+            <th data-col="created_at">Created</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+
+      <div id="pagination"></div>
+    </section>
+
+  </main>
+
+  <script src="../public/script.js"></script>
+</body>
+</html>
