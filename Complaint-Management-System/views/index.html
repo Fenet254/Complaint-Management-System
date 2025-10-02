@@ -1,75 +1,155 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <title>Student Complaints — University</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <link rel="stylesheet" href="../public/style.css">
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AI-Powered University Complaint Management System</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1173d4",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
 </head>
-<body>
-  <main class="container">
-    <h1>University Complaint Portal</h1>
+<body class="bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-200">
+<div class="flex min-h-screen">
+<aside class="w-64 bg-white dark:bg-background-dark flex-col border-r border-gray-200 dark:border-gray-800 hidden lg:flex">
+<div class="p-6">
+<h1 class="text-xl font-bold text-gray-900 dark:text-white">UniResolve AI</h1>
+</div>
+<nav class="flex flex-col p-4 space-y-2">
+<a class="flex items-center gap-3 px-4 py-2 rounded-lg bg-primary/10 dark:bg-primary/20 text-primary font-semibold" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-300" href="#">
+<span class="material-symbols-outlined">add</span>
+<span>Submit Complaint</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-300" href="#">
+<span class="material-symbols-outlined">folder_open</span>
+<span>My Complaints</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-300" href="#">
+<span class="material-symbols-outlined">quiz</span>
+<span>FAQ</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-300" href="#">
+<span class="material-symbols-outlined">mail</span>
+<span>Contact Us</span>
+</a>
+</nav>
+<div class="mt-auto p-4 border-t border-gray-200 dark:border-gray-800">
+<div class="flex items-center gap-3">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBQkOwP-yb8HEMxPpdP4pCSVZ9AY1vhbRsgFUZI9wGfIRtVyQ1jMHTvtVdfU20IVWgVn2K6fFRS3_ztmQ8CwrQOHkCx0iZIJUxA0e3vCfe36TbeiQP_rOl1gJZLLXYIzj2ACbvqrNbZwZK9-Opm8qd2X7t2dtLUGnV2OcjoRn_WnSC_TfUMjGkXB40jyZRmA-C25F5sbI1uC5ZPQUQbtLeilBjpeb4I3Z5s0Qpqxai6bDXejt6MVxA70miHX9Ffj4xifIg_uDRL68g");'></div>
+<div>
+<p class="font-semibold text-gray-900 dark:text-white">Sophia Clark</p>
+<p class="text-sm text-gray-500 dark:text-gray-400">Student</p>
+</div>
+</div>
+</div>
+</aside>
+<main class="flex-1">
+<div class="p-6 md:p-8">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
+<div>
+<h2 class="text-3xl font-bold text-gray-900 dark:text-white">Dashboard</h2>
+<p class="text-gray-500 dark:text-gray-400 mt-1">Welcome back, Sophia. Here's an overview of your complaints.</p>
+</div>
+<button class="flex items-center justify-center gap-2 h-10 px-4 mt-4 md:mt-0 rounded-lg bg-primary text-white font-semibold text-sm shadow-sm hover:bg-primary/90 transition-colors">
+<span class="material-symbols-outlined text-base">add</span>
+<span>Submit New Complaint</span>
+</button>
+</div>
+<div class="bg-white dark:bg-gray-900/50 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-800 flex items-center gap-6 mb-8">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-24" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCTHI_UY9eOhdjmoKE0z516RtEWTmXcMj5qZO8O4FDJkQu32gEW8fk0IDIGCapzv7x2wLSsE8p86NttNGmUMZLbirVfhJmufnx7jkZHDXlyQM2VSIXiELMMXx8T6MC-HUfAdYsp2QcXJy8IcWeNQHRCTCqs7QG6eZ-gJo1Dvkatnx0nfT48NiDkIIOZWLxLX34WVrlncqBnSWdX7zbAuZ6nqjFQluE1Qc4iGBBcZgaerWoK-9tNETv2CecTm5yqmVrEN8ikiNdpIzM");'></div>
+<div>
+<p class="text-2xl font-bold text-gray-900 dark:text-white">Sophia Clark</p>
+<p class="text-gray-600 dark:text-gray-300">Student</p>
+<p class="text-gray-600 dark:text-gray-300">ID: 123456789</p>
+</div>
+</div>
+<div>
+<h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">My Complaints</h3>
+<div class="overflow-x-auto bg-white dark:bg-gray-900/50 rounded-xl shadow-sm border border-gray-200 dark:border-gray-800">
+<table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+<thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-800 dark:text-gray-400">
+<tr>
+<th class="px-6 py-3 font-semibold" scope="col">Complaint ID</th>
+<th class="px-6 py-3 font-semibold" scope="col">Subject</th>
+<th class="px-6 py-3 font-semibold" scope="col">Status</th>
+<th class="px-6 py-3 font-semibold" scope="col">Date Submitted</th>
+<th class="px-6 py-3" scope="col">
+<span class="sr-only">Actions</span>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr class="bg-white dark:bg-gray-900/50 border-b dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800/50">
+<td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">#001</td>
+<td class="px-6 py-4">Noise complaints in the library</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300">In Review</span>
+</td>
+<td class="px-6 py-4">2024-01-15</td>
+<td class="px-6 py-4 text-right">
+<a class="font-medium text-primary hover:underline" href="#">View</a>
+</td>
+</tr>
+<tr class="bg-white dark:bg-gray-900/50 border-b dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800/50">
+<td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">#002</td>
+<td class="px-6 py-4">Issues with course registration</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300">Resolved</span>
+</td>
+<td class="px-6 py-4">2024-02-20</td>
+<td class="px-6 py-4 text-right">
+<a class="font-medium text-primary hover:underline" href="#">View</a>
+</td>
+</tr>
+<tr class="bg-white dark:bg-gray-900/50 hover:bg-gray-50 dark:hover:bg-gray-800/50">
+<td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">#003</td>
+<td class="px-6 py-4">Concerns about campus safety</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300">Pending</span>
+</td>
+<td class="px-6 py-4">2024-03-10</td>
+<td class="px-6 py-4 text-right">
+<a class="font-medium text-primary hover:underline" href="#">View</a>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</main>
+</div>
 
-    <section class="card">
-      <h2>Submit a complaint</h2>
-      <form id="complaintForm">
-        <label>
-          Title
-          <input id="title" required maxlength="200" />
-        </label>
-
-        <label>
-          Type
-          <select id="typeSelect"></select>
-        </label>
-
-        <label>
-          Description
-          <textarea id="description" required rows="5"></textarea>
-        </label>
-
-        <label class="inline">
-          <input type="checkbox" id="anonymous" /> Submit anonymously
-        </label>
-
-        <div>
-          <button type="submit">Send Complaint</button>
-        </div>
-      </form>
-      <div id="formMsg" class="message"></div>
-    </section>
-
-    <section class="card">
-      <h2>All Complaints</h2>
-      <div class="controls">
-        <input id="search" placeholder="Search..." />
-        <select id="filterStatus">
-          <option value="">All statuses</option>
-          <option value="open">Open</option>
-          <option value="in_progress">In progress</option>
-          <option value="resolved">Resolved</option>
-          <option value="dismissed">Dismissed</option>
-        </select>
-      </div>
-
-      <table id="complaintsTable">
-        <thead>
-          <tr>
-            <th data-col="id">#</th>
-            <th data-col="title">Title</th>
-            <th data-col="type_name">Type</th>
-            <th data-col="status">Status</th>
-            <th data-col="created_at">Created</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-
-      <div id="pagination"></div>
-    </section>
-
-  </main>
-
-  <script src="../public/script.js"></script>
-</body>
-</html>
+</body></html>
