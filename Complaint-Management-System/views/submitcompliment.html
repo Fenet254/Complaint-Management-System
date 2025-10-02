@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Stitch Design</title>
+<link href="data:image/x-icon;base64," rel="icon" type="image/x-icon"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#1173d4",
+              "background-light": "#f6f7f8",
+              "background-dark": "#101922",
+            },
+            fontFamily: {
+              "display": ["Inter", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-200">
+<div class="flex flex-col min-h-screen">
+<header class="bg-white dark:bg-background-dark/50 border-b border-gray-200 dark:border-gray-700/50">
+<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+<div class="flex h-16 items-center justify-between">
+<div class="flex items-center">
+<div class="flex-shrink-0">
+<svg class="h-8 w-8 text-primary" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M4 42.4379C4 42.4379 14.0962 36.0744 24 41.1692C35.0664 46.8624 44 42.2078 44 42.2078L44 7.01134C44 7.01134 35.068 11.6577 24.0031 5.96913C14.0971 0.876274 4 7.27094 4 7.27094L4 42.4379Z" fill="currentColor"></path>
+</svg>
+</div>
+<div class="hidden md:block">
+<div class="ml-10 flex items-baseline space-x-4">
+<a class="text-gray-600 dark:text-gray-300 hover:bg-primary/10 dark:hover:bg-primary/20 hover:text-primary px-3 py-2 rounded-lg text-sm font-medium" href="#">Dashboard</a>
+<a class="text-white bg-primary px-3 py-2 rounded-lg text-sm font-medium" href="#">Complaints</a>
+<a class="text-gray-600 dark:text-gray-300 hover:bg-primary/10 dark:hover:bg-primary/20 hover:text-primary px-3 py-2 rounded-lg text-sm font-medium" href="#">FAQ</a>
+<a class="text-gray-600 dark:text-gray-300 hover:bg-primary/10 dark:hover:bg-primary/20 hover:text-primary px-3 py-2 rounded-lg text-sm font-medium" href="#">Contact</a>
+</div>
+</div>
+</div>
+<div class="hidden md:block">
+<div class="ml-4 flex items-center md:ml-6">
+<button class="relative rounded-full bg-primary/10 p-1 text-primary hover:text-primary/80 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-primary" type="button">
+<span class="absolute -inset-1.5"></span>
+<span class="sr-only">View notifications</span>
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="relative ml-3">
+<div>
+<button aria-expanded="false" aria-haspopup="true" class="relative flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800" id="user-menu-button" type="button">
+<span class="absolute -inset-1.5"></span>
+<span class="sr-only">Open user menu</span>
+<div class="h-8 w-8 rounded-full bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDc6tIVpmamdWu-Uz3Pniz92T0AEoJTtzRmMmnGVnLTuG_zjiUtBgwoN535o7uaB-cKTaA7LSJfLynogE11DeN-S4gal-aRPRAuJnxdFFED15p0F-NGp7q42jopfqXqfxAfKVRwLwFUiqBgkZI1-LE2R6YOLBvRonbMOLVVHuMGwxIU1DvbrZP4-yHeR-y5bDxptEFCx4G3GdFnXHgq06T0Jg0VQN8Qkj4xEysL_dboSVIzoQ4j906P0plXuc6IG-aZ2c0-cyjJoxU");'></div>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</header>
+<main class="flex-grow">
+<div class="mx-auto max-w-2xl py-12 px-4 sm:px-6 lg:px-8">
+<div class="space-y-8">
+<div>
+<h1 class="text-3xl font-bold tracking-tight text-gray-900 dark:text-white">Submit a Complaint</h1>
+<p class="mt-2 text-sm text-gray-500 dark:text-gray-400">Fill in the details below to submit your complaint. Our AI will help categorize it.</p>
+</div>
+<form action="#" class="space-y-6" method="POST">
+<div>
+<label class="block text-sm font-medium text-gray-700 dark:text-gray-300" for="title">Title</label>
+<div class="mt-1">
+<input class="block w-full rounded-lg border-gray-300 dark:border-gray-600 bg-white dark:bg-background-dark/50 shadow-sm focus:border-primary focus:ring-primary sm:text-sm py-3 px-4" id="title" name="title" placeholder="e.g., Issue with course registration" type="text"/>
+</div>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 dark:text-gray-300" for="description">Description</label>
+<div class="mt-1">
+<textarea class="block w-full rounded-lg border-gray-300 dark:border-gray-600 bg-white dark:bg-background-dark/50 shadow-sm focus:border-primary focus:ring-primary sm:text-sm py-3 px-4" id="description" name="description" placeholder="Please provide as much detail as possible..." rows="4"></textarea>
+</div>
+</div>
+<div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-2">
+<div>
+<label class="block text-sm font-medium text-gray-700 dark:text-gray-300" for="category">Category</label>
+<div class="mt-1">
+<select class="block w-full rounded-lg border-gray-300 dark:border-gray-600 bg-white dark:bg-background-dark/50 shadow-sm focus:border-primary focus:ring-primary sm:text-sm py-3 px-4" id="category" name="category">
+<option>Academic Issues</option>
+<option>Administrative Services</option>
+<option>Facilities &amp; Maintenance</option>
+<option>Student Life</option>
+<option>Other</option>
+</select>
+</div>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 dark:text-gray-300" for="urgency">Urgency</label>
+<div class="mt-1">
+<select class="block w-full rounded-lg border-gray-300 dark:border-gray-600 bg-white dark:bg-background-dark/50 shadow-sm focus:border-primary focus:ring-primary sm:text-sm py-3 px-4" id="urgency" name="urgency">
+<option>Low</option>
+<option>Medium</option>
+<option>High</option>
+<option>Critical</option>
+</select>
+</div>
+</div>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Attachment</label>
+<div class="mt-1 flex justify-center rounded-lg border border-dashed border-gray-300 dark:border-gray-600 px-6 pt-5 pb-6">
+<div class="space-y-1 text-center">
+<span class="material-symbols-outlined text-4xl text-gray-400 dark:text-gray-500">cloud_upload</span>
+<div class="flex text-sm text-gray-600 dark:text-gray-400">
+<label class="relative cursor-pointer rounded-md bg-transparent font-medium text-primary hover:text-primary/80 focus-within:outline-none focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2 dark:ring-offset-background-dark" for="file-upload">
+<span>Upload a file</span>
+<input class="sr-only" id="file-upload" name="file-upload" type="file"/>
+</label>
+<p class="pl-1">or drag and drop</p>
+</div>
+<p class="text-xs text-gray-500 dark:text-gray-500">PNG, JPG, PDF, MP4 up to 10MB</p>
+</div>
+</div>
+</div>
+<div class="rounded-lg bg-primary/10 dark:bg-primary/20 p-4 space-y-2">
+<h4 class="text-sm font-semibold text-primary">AI-Powered Assistance</h4>
+<div class="text-sm text-primary/80 dark:text-primary/90 space-y-1">
+<p><span class="font-medium">Suggested Category:</span> Academic Issues</p>
+<p><span class="font-medium">Detected Urgency:</span> High</p>
+</div>
+</div>
+<div class="flex justify-end pt-4">
+<button class="rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-background-dark/50 py-2 px-4 text-sm font-medium text-gray-700 dark:text-gray-200 shadow-sm hover:bg-gray-50 dark:hover:bg-background-dark" type="button">Cancel</button>
+<button class="ml-3 inline-flex justify-center rounded-lg border border-transparent bg-primary py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:ring-offset-background-dark" type="submit">Submit Complaint</button>
+</div>
+</form>
+</div>
+</div>
+</main>
+</div>
+
+</body></html>
