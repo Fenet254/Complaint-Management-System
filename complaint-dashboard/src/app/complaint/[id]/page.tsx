@@ -1,37 +1,53 @@
-// src/app/complaint/[id]/page.tsx
 "use client";
 
 import React from "react";
+import Link from "next/link";
 
-export default function ComplaintDetailsPage() {
+export default function DashboardPage() {
   return (
-    <div className="flex flex-col min-h-screen bg-background-light dark:bg-background-dark font-display">
-      {/* Header */}
-      <header className="bg-background-light dark:bg-background-dark/50 backdrop-blur-sm sticky top-0 z-10 border-b border-white/10 dark:border-white/5">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <div className="flex items-center gap-4 text-slate-800 dark:text-white">
-              <div className="w-8 h-8 text-primary">
-                <svg
-                  fill="none"
-                  viewBox="0 0 48 48"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    clipRule="evenodd"
-                    d="M12.0799 24L4 19.2479L9.95537 8.75216L18.04 13.4961L18.0446 4H29.9554L29.96 13.4961L38.0446 8.75216L44 19.2479L35.92 24L44 28.7521L38.0446 39.2479L29.96 34.5039L29.9554 44H18.0446L18.04 34.5039L9.95537 39.2479L4 28.7521L12.0799 24Z"
-                    fill="currentColor"
-                    fillRule="evenodd"
-                  ></path>
-                </svg>
-              </div>
-              <h1 className="text-lg font-bold">Complaint Management System</h1>
-            </div>
-            <div className="flex items-center gap-4">
-              <button className="p-2 rounded-full text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800">
-                <span className="material-symbols-outlined">notifications</span>
-              </button>
-              <div
-                className="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10"
-                style={{
-                  backgroundImage: `url("https://lh3.googleusercontent.com/aida-public/...")
+    <div className="flex min-h-screen bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-200">
+      {/* Sidebar */}
+      <aside className="w-64 bg-white dark:bg-background-dark flex-col border-r border-gray-200 dark:border-gray-800 hidden lg:flex">
+        <div className="p-6">
+          <h1 className="text-xl font-bold text-gray-900 dark:text-white">
+            UniResolve AI
+          </h1>
+        </div>
+        <nav className="flex flex-col p-4 space-y-2">
+          <Link
+            href="/"
+            className="flex items-center gap-3 px-4 py-2 rounded-lg bg-primary/10 dark:bg-primary/20 text-primary font-semibold"
+          >
+            <span className="material-symbols-outlined">dashboard</span>
+            <span>Dashboard</span>
+          </Link>
+          <Link
+            href="/submit"
+            className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-300"
+          >
+            <span className="material-symbols-outlined">add</span>
+            <span>Submit Complaint</span>
+          </Link>
+          <Link
+            href="/track"
+            className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-300"
+          >
+            <span className="material-symbols-outlined">folder_open</span>
+            <span>My Complaints</span>
+          </Link>
+        </nav>
+      </aside>
+
+      {/* Main Dashboard */}
+      <main className="flex-1 p-6 md:p-8">
+        <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+          Dashboard
+        </h2>
+        <p className="text-gray-500 dark:text-gray-400">
+          Welcome back, Sophia. Here&apos;s an overview of your complaints.
+        </p>
+        {/* Table etc… */}
+      </main>
+    </div>
+  );
+}
