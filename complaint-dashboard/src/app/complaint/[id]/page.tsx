@@ -6,7 +6,6 @@ import Link from "next/link";
 export default function DashboardPage() {
   return (
     <div className="flex min-h-screen bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-200">
-      {/* Sidebar */}
       <aside className="w-64 bg-white dark:bg-background-dark flex-col border-r border-gray-200 dark:border-gray-800 hidden lg:flex">
         <div className="p-6">
           <h1 className="text-xl font-bold text-gray-900 dark:text-white">
@@ -38,7 +37,6 @@ export default function DashboardPage() {
         </nav>
       </aside>
 
-      {/* Main Dashboard */}
       <main className="flex-1 p-6 md:p-8">
         <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
           Dashboard
@@ -46,7 +44,6 @@ export default function DashboardPage() {
         <p className="text-gray-500 dark:text-gray-400">
           Welcome back, Sophia. Here&apos;s an overview of your complaints.
         </p>
-        {/* Table etc… */}
       </main>
     </div>
   );
