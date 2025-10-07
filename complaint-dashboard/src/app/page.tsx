@@ -1,6 +1,10 @@
 "use client";
 
+import { useSession, signOut } from 'next-auth/react';
+
 export default function TrackComplaintsPage() {
+  const { data: session } = useSession();
+
   return (
     <div className="flex min-h-screen">
       {/* Sidebar */}
@@ -9,6 +13,11 @@ export default function TrackComplaintsPage() {
           <h1 className="text-xl font-bold text-gray-900 dark:text-white">
             UniResolve AI
           </h1>
+          {session && (
+            <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">
+              Welcome, {session.user.name} ({session.user.role})
+            </p>
+          )}
         </div>
         <nav className="flex-1 px-4 py-2 space-y-1">
           <a
@@ -41,6 +50,14 @@ export default function TrackComplaintsPage() {
           >
             Contact Support
           </a>
+          {session && (
+            <button
+              onClick={() => signOut()}
+              className="flex items-center gap-3 px-4 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-red-100 dark:hover:bg-red-900/20 w-full text-left"
+            >
+              Logout
+            </button>
+          )}
         </nav>
       </aside>
 
