@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useSession } from "next-auth/react";
 
 export default function SubmitComplaintPage() {
+  const { data: session } = useSession();
   const [form, setForm] = useState({
     title: "",
     description: "",
