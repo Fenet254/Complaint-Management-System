@@ -27,10 +27,44 @@ export default function SubmitComplaintPage() {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form submitted:", form);
-    alert("Complaint submitted ✅ (check console for details)");
+
+    try {
+      const formData = new FormData();
+      formData.append('title', form.title);
+      formData.append('description', form.description);
+      formData.append('category', form.category);
+      formData.append('urgency', form.urgency);
+      if (form.file) {
+        formData.append('attachment', form.file);
+      }
+
+      const token = localStorage.getItem('token'); // Assuming token stored in localStorage
+
+      const response = await fetch('http://localhost:5000/api/complaints', {
+        method: 'POST',
+        headers: {
+          'x-auth-token': token || '',
+        },
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to submit complaint');
+      }
+
+      alert('Complaint submitted successfully');
+      setForm({
+        title: '',
+        description: '',
+        category: 'Academic Issues',
+        urgency: 'Low',
+        file: null,
+      });
+    } catch (error) {
+      alert('Error submitting complaint: ' + error.message);
+    }
   };
 
   return (
