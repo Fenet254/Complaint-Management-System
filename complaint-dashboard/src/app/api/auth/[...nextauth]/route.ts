@@ -34,6 +34,7 @@ const handler = NextAuth({
               name: user.user.name,
               email: user.user.email,
               role: user.user.role,
+              token: user.token,
             };
           } else {
             return null;
