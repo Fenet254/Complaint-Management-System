@@ -63,7 +63,7 @@ export default function SubmitComplaintPage() {
         file: null,
       });
     } catch (error) {
-      alert('Error submitting complaint: ' + error.message);
+      alert('Error submitting complaint: ' + (error instanceof Error ? error.message : 'Unknown error'));
     }
   };
 
