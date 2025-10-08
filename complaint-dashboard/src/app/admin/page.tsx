@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
 
 interface Complaint {
   _id: string;
@@ -16,17 +17,18 @@ interface Complaint {
 }
 
 export default function AdminDashboardPage() {
+  const { data: session } = useSession();
   const [complaints, setComplaints] = useState<Complaint[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
   const fetchComplaints = async () => {
+    if (!session) return;
     try {
       const res = await fetch("http://localhost:5000/api/complaints", {
         headers: {
-          "Content-Type": "application/json",
+          "x-auth-token": session.accessToken || "",
         },
-        credentials: "include",
       });
       if (!res.ok) {
         throw new Error("Failed to fetch complaints");
@@ -41,15 +43,19 @@ export default function AdminDashboardPage() {
   };
 
   useEffect(() => {
-    fetchComplaints();
-  }, []);
+    if (session) {
+      fetchComplaints();
+    }
+  }, [session]);
 
   const updateStatus = async (id: string, status: string) => {
+    if (!session) return;
     try {
       const res = await fetch(`http://localhost:5000/api/complaints/${id}/status`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
+          "x-auth-token": session.accessToken || "",
         },
         body: JSON.stringify({ status }),
       });
