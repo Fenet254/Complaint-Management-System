@@ -42,7 +42,7 @@ export default function SubmitComplaintPage() {
         formData.append('attachment', form.file);
       }
 
-      const token = localStorage.getItem('token'); // Assuming token stored in localStorage
+      const token = session?.accessToken;
 
       const response = await fetch('http://localhost:5000/api/complaints', {
         method: 'POST',
