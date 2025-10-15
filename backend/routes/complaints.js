@@ -124,15 +124,78 @@ router.put('/:id/status', authMiddleware, async (req, res) => {
       return res.status(403).json({ msg: 'Access denied' });
     }
     const { status } = req.body;
-    const complaint = await Complaint.findById(req.params.id);
+    const complaint = await Complaint.findById(req.params.id).populate('submittedBy');
     if (!complaint) {
       return res.status(404).json({ msg: 'Complaint not found' });
     }
+
+    const oldStatus = complaint.status;
     complaint.status = status;
     complaint.updatedAt = Date.now();
+
+    // Calculate resolution time if resolved
+    if (status === 'Resolved' && oldStatus !== 'Resolved') {
+      complaint.resolutionTime = Math.ceil((Date.now() - complaint.createdAt) / (1000 * 60 * 60)); // hours
+
+      // Award points for resolution
+      const gamificationService = require('../services/gamificationService');
+      await gamificationService.awardPoints(complaint.submittedBy._id, 5, 'complaint resolved');
+
+      // Update admin stats
+      await User.findByIdAndUpdate(req.user.id, {
+        $inc: { complaintsResolved: 1 }
+      });
+    }
+
     await complaint.save();
+
+    // Real-time notification
+    const io = req.app.get('io');
+    io.to(`user-${complaint.submittedBy._id}`).emit('complaint-update', {
+      complaintId: complaint._id,
+      status: complaint.status,
+      message: `Your complaint "${complaint.title}" has been ${status.toLowerCase()}`
+    });
+
+    io.to('admin-room').emit('complaint-status-changed', {
+      complaintId: complaint._id,
+      oldStatus,
+      newStatus: status,
+      updatedBy: req.user.name
+    });
+
     res.json(complaint);
   } catch (err) {
+    console.error('Error updating complaint status:', err);
+    res.status(500).json({ msg: 'Server error' });
+  }
+});
+
+// Add feedback to resolved complaint
+router.post('/:id/feedback', authMiddleware, async (req, res) => {
+  try {
+    const { feedback, rating } = req.body;
+    const complaint = await Complaint.findById(req.params.id);
+
+    if (!complaint) {
+      return res.status(404).json({ msg: 'Complaint not found' });
+    }
+
+    if (complaint.submittedBy.toString() !== req.user.id) {
+      return res.status(403).json({ msg: 'Access denied' });
+    }
+
+    if (complaint.status !== 'Resolved') {
+      return res.status(400).json({ msg: 'Complaint must be resolved to add feedback' });
+    }
+
+    complaint.feedback = feedback;
+    complaint.rating = rating;
+    await complaint.save();
+
+    res.json(complaint);
+  } catch (err) {
+    console.error('Error adding feedback:', err);
     res.status(500).json({ msg: 'Server error' });
   }
 });
