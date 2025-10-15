@@ -2,7 +2,9 @@ const express = require('express');
 const multer = require('multer');
 const path = require('path');
 const Complaint = require('../models/Complaint');
-const authMiddleware = require('../middleware/auth'); // Assuming auth middleware exists
+const User = require('../models/User');
+const authMiddleware = require('../middleware/auth');
+const aiService = require('../services/aiService');
 
 const router = express.Router();
 
@@ -17,11 +19,20 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
-// Create a complaint
+// Create a complaint with AI processing
 router.post('/', authMiddleware, upload.single('attachment'), async (req, res) => {
   try {
     const { title, description, category, urgency } = req.body;
     const attachment = req.file ? req.file.path : null;
+
+    // AI processing
+    const [aiCategory, sentiment, tags, priority] = await Promise.all([
+      aiService.categorizeComplaint(title, description),
+      aiService.analyzeSentiment(description),
+      aiService.generateTags(title, description),
+      aiService.calculatePriority(title, description, urgency)
+    ]);
+
     const complaint = new Complaint({
       title,
       description,
@@ -29,10 +40,39 @@ router.post('/', authMiddleware, upload.single('attachment'), async (req, res) =
       urgency,
       attachment,
       submittedBy: req.user.id,
+      aiCategory,
+      sentiment,
+      tags,
+      priority,
+      points: 10, // Base points for submission
     });
+
     await complaint.save();
-    res.status(201).json(complaint);
+
+    // Update user stats and gamification
+    await User.findByIdAndUpdate(req.user.id, {
+      $inc: {
+        points: 10,
+        complaintsSubmitted: 1
+      }
+    });
+
+    // Check for badge achievements
+    const gamificationService = require('../services/gamificationService');
+    await gamificationService.checkBadgeAchievements(req.user.id);
+    await gamificationService.checkAchievements(req.user.id);
+
+    res.status(201).json({
+      ...complaint.toObject(),
+      aiInsights: {
+        suggestedCategory: aiCategory,
+        sentiment,
+        tags,
+        priority
+      }
+    });
   } catch (err) {
+    console.error('Error creating complaint:', err);
     res.status(500).json({ msg: 'Server error' });
   }
 });
