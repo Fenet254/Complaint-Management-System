@@ -60,6 +60,7 @@ app.use("/api/complaints", require("./routes/complaints"));
 app.use("/api/users", require("./routes/users"));
 app.use("/api/admin", require("./routes/admin"));
 app.use("/api/analytics", require("./routes/analytics"));
+app.use("/api/gamification", require("./routes/gamification"));
 
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
