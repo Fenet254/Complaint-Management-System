@@ -4,15 +4,17 @@ import { useSession, signOut } from 'next-auth/react';
 import { useTheme } from 'next-themes';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import ParticleBackground from '../../components/ParticleBackground';
 
 export default function HomePage() {
   const { data: session } = useSession();
   const { theme, setTheme } = useTheme();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 relative overflow-hidden">
+      <ParticleBackground />
       {/* Header */}
-      <header className="glass-effect border-b border-white/20 dark:border-gray-700/50">
+      <header className="glass-effect border-b border-white/20 dark:border-gray-700/50 relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
             <motion.h1
@@ -24,23 +26,27 @@ export default function HomePage() {
               UniResolve AI
             </motion.h1>
             <div className="flex items-center gap-4">
-              <button
+              <motion.button
                 onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                className="p-2 rounded-lg bg-white/10 hover:bg-white/20 dark:bg-gray-800/50 dark:hover:bg-gray-700/50 transition-colors"
+                className="p-2 rounded-lg bg-white/10 hover:bg-white/20 dark:bg-gray-800/50 dark:hover:bg-gray-700/50 transition-colors hover:scale-110 transform"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
               >
                 {theme === 'dark' ? '☀️' : '🌙'}
-              </button>
+              </motion.button>
               {session && (
                 <div className="flex items-center gap-2">
                   <span className="text-sm text-gray-600 dark:text-gray-300">
                     Welcome, {session.user.name}
                   </span>
-                  <button
+                  <motion.button
                     onClick={() => signOut()}
                     className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                   >
                     Logout
-                  </button>
+                  </motion.button>
                 </div>
               )}
             </div>
