@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useSession } from "next-auth/react";
+import { motion } from "framer-motion";
 
 export default function SubmitComplaintPage() {
   const { data: session } = useSession();
@@ -240,19 +241,26 @@ export default function SubmitComplaintPage() {
             </div>
 
             {/* Buttons */}
-            <div className="flex justify-end pt-4">
-              <button
+            <div className="flex justify-end pt-4 gap-3">
+              <motion.button
                 type="button"
-                className="rounded-lg border py-2 px-4 text-sm"
+                className="rounded-lg border border-gray-300 dark:border-gray-600 py-2 px-4 text-sm hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
               >
                 Cancel
-              </button>
-              <button
+              </motion.button>
+              <motion.button
                 type="submit"
-                className="ml-3 bg-primary text-white rounded-lg py-2 px-4 text-sm font-medium hover:bg-primary/90"
+                className="bg-primary text-white rounded-lg py-2 px-4 text-sm font-medium hover:bg-primary/90 shadow-lg hover:shadow-xl"
+                whileHover={{ scale: 1.05, boxShadow: "0 10px 25px rgba(37, 99, 235, 0.3)" }}
+                whileTap={{ scale: 0.95 }}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.2 }}
               >
                 Submit Complaint
-              </button>
+              </motion.button>
             </div>
           </form>
         </div>

@@ -29,6 +29,7 @@ export default function ParticleBackground() {
     };
 
     const createParticles = () => {
+      if (!canvas) return;
       const particles: Particle[] = [];
       const particleCount = Math.min(100, Math.floor((canvas.width * canvas.height) / 15000));
 
