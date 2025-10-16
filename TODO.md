@@ -64,11 +64,11 @@
   - [x] Update globals.css for custom styles
   - [x] Enhance layout.tsx with theme provider
   - [x] Update all pages for better responsiveness
-  - [ ] Add unique interactive elements (e.g., particle background, floating animations)
+- [x] Add unique interactive elements (e.g., particle background, floating animations)
   - [ ] Implement advanced micro-interactions and hover effects
   - [ ] Add PWA capabilities and offline support
-  - [ ] Create reusable UI components (e.g., animated buttons, cards)
-  - [ ] Add particle background animation to homepage
+  - [x] Create reusable UI components (e.g., animated buttons, cards)
+  - [x] Add particle background animation to homepage
   - [ ] Implement floating notification system
   - [ ] Add interactive 3D card effects
   - [ ] Create animated loading states and skeletons

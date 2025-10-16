@@ -2,6 +2,9 @@
 
 import React, { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
+import { motion } from "framer-motion";
+import AnimatedCard from "../../components/AnimatedCard";
+import AnimatedButton from "../../components/AnimatedButton";
 
 interface Complaint {
   _id: string;
@@ -176,22 +179,38 @@ export default function AdminDashboardPage() {
 
           {/* Stats */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-            <div className="bg-white dark:bg-background-dark p-6 rounded-lg border border-gray-200 dark:border-gray-700">
-              <h3 className="text-lg font-medium text-gray-900 dark:text-white">
-                Pending Complaints
-              </h3>
-              <p className="text-4xl font-bold text-primary mt-2">
-                {complaints.filter((c) => c.status === "Pending").length}
-              </p>
-            </div>
-            <div className="bg-white dark:bg-background-dark p-6 rounded-lg border border-gray-200 dark:border-gray-700">
-              <h3 className="text-lg font-medium text-gray-900 dark:text-white">
-                Resolved Complaints
-              </h3>
-              <p className="text-4xl font-bold text-green-500 mt-2">
-                {complaints.filter((c) => c.status === "Resolved").length}
-              </p>
-            </div>
+            <AnimatedCard delay={0.1}>
+              <div className="p-6">
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ delay: 0.3, type: "spring", stiffness: 200 }}
+                >
+                  <h3 className="text-lg font-medium text-gray-900 dark:text-white">
+                    Pending Complaints
+                  </h3>
+                  <p className="text-4xl font-bold text-primary mt-2">
+                    {complaints.filter((c) => c.status === "Pending").length}
+                  </p>
+                </motion.div>
+              </div>
+            </AnimatedCard>
+            <AnimatedCard delay={0.2}>
+              <div className="p-6">
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ delay: 0.4, type: "spring", stiffness: 200 }}
+                >
+                  <h3 className="text-lg font-medium text-gray-900 dark:text-white">
+                    Resolved Complaints
+                  </h3>
+                  <p className="text-4xl font-bold text-green-500 mt-2">
+                    {complaints.filter((c) => c.status === "Resolved").length}
+                  </p>
+                </motion.div>
+              </div>
+            </AnimatedCard>
           </div>
 
           {/* Chart + Resolution Rate */}
