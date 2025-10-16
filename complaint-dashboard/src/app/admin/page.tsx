@@ -215,39 +215,67 @@ export default function AdminDashboardPage() {
 
           {/* Chart + Resolution Rate */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-            <div className="bg-white dark:bg-background-dark p-6 rounded-lg border border-gray-200 dark:border-gray-700">
-              <h3 className="text-lg font-medium text-gray-900 dark:text-white">
-                Complaint Submission Trends
-              </h3>
-              <p className="text-3xl font-bold text-gray-900 dark:text-white mt-2">
-                +15%
-              </p>
-              <p className="text-sm text-green-500 font-medium">Last 30 Days</p>
-            </div>
+            <AnimatedCard delay={0.3}>
+              <div className="p-6">
+                <motion.div
+                  initial={{ x: -20, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  transition={{ delay: 0.5 }}
+                >
+                  <h3 className="text-lg font-medium text-gray-900 dark:text-white">
+                    Complaint Submission Trends
+                  </h3>
+                  <motion.p
+                    className="text-3xl font-bold text-gray-900 dark:text-white mt-2"
+                    initial={{ scale: 0.8 }}
+                    animate={{ scale: 1 }}
+                    transition={{ delay: 0.7, type: "spring" }}
+                  >
+                    +15%
+                  </motion.p>
+                  <p className="text-sm text-green-500 font-medium">Last 30 Days</p>
+                </motion.div>
+              </div>
+            </AnimatedCard>
 
-            <div className="bg-white dark:bg-background-dark p-6 rounded-lg border border-gray-200 dark:border-gray-700">
-              <h3 className="text-lg font-medium text-gray-900 dark:text-white">
-                Resolution Rates
-              </h3>
-              <p className="text-3xl font-bold text-gray-900 dark:text-white mt-2">
-                85%
-              </p>
-              <p className="text-sm text-green-500 font-medium">
-                +5% vs last month
-              </p>
-            </div>
+            <AnimatedCard delay={0.4}>
+              <div className="p-6">
+                <motion.div
+                  initial={{ x: 20, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  transition={{ delay: 0.6 }}
+                >
+                  <h3 className="text-lg font-medium text-gray-900 dark:text-white">
+                    Resolution Rates
+                  </h3>
+                  <motion.p
+                    className="text-3xl font-bold text-gray-900 dark:text-white mt-2"
+                    initial={{ scale: 0.8 }}
+                    animate={{ scale: 1 }}
+                    transition={{ delay: 0.8, type: "spring" }}
+                  >
+                    85%
+                  </motion.p>
+                  <p className="text-sm text-green-500 font-medium">
+                    +5% vs last month
+                  </p>
+                </motion.div>
+              </div>
+            </AnimatedCard>
           </div>
 
           {/* Complaints Table */}
-          <div className="bg-white dark:bg-background-dark rounded-lg border border-gray-200 dark:border-gray-700">
+          <AnimatedCard delay={0.5}>
             <div className="p-4 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center">
               <h3 className="text-lg font-medium text-gray-900 dark:text-white">
                 All Complaints
               </h3>
-              <button className="flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-white text-sm font-medium">
-                <span className="material-symbols-outlined text-base">add</span>{" "}
-                New Complaint
-              </button>
+              <AnimatedButton>
+                <span className="flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-white text-sm font-medium">
+                  <span className="material-symbols-outlined text-base">add</span>{" "}
+                  New Complaint
+                </span>
+              </AnimatedButton>
             </div>
             <div className="overflow-x-auto">
               <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -318,7 +346,7 @@ export default function AdminDashboardPage() {
                 </tbody>
               </table>
             </div>
-          </div>
+          </AnimatedCard>
         </div>
       </main>
     </div>
