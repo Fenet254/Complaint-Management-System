@@ -1,3 +1,5 @@
+
+
 🎓 Complaint Management System
 The Complaint Management System is a digital platform built to help university students report, track, and resolve issues they face on campus — from academic concerns to facility problems. It’s designed to make student voices heard and ensure complaints are handled transparently and efficiently.
 💬 Why It Matters
@@ -14,3 +16,12 @@ This project is part of a student-led initiative to improve campus life through 
 - A clean structure for future improvements (e.g., notifications, analytics)
 
 Would you like help writing the full README, including setup instructions, feature list, and contribution guidelines? I can tailor it to your tech stack and student audience.
+
+
+🛠️ Built For Students, By Student
+
+This project is part of a student-led initiative to improve campus life through technology. It’s lightweight, customizable, and ready to be deployed in any university setting. The codebase includes:
+- A backend for complaint storage and processing
+- A dashboard for tracking and managing submissions
+- A clean structure for future improvements (e.g., notifications, analytics
+
