@@ -200,4 +200,32 @@ router.post('/:id/feedback', authMiddleware, async (req, res) => {
   }
 });
 
+// AI-powered smart suggestions (real-time)
+router.post('/ai-suggestions', authMiddleware, async (req, res) => {
+  try {
+    const { title, description } = req.body;
+
+    if (!title || !description) {
+      return res.status(400).json({ msg: 'Title and description are required' });
+    }
+
+    const [suggestedCategory, sentiment, tags, priority] = await Promise.all([
+      aiService.categorizeComplaint(title, description),
+      aiService.analyzeSentiment(description),
+      aiService.generateTags(title, description),
+      aiService.calculatePriority(title, description, 'Medium') // Default urgency for suggestions
+    ]);
+
+    res.json({
+      suggestedCategory,
+      sentiment,
+      tags,
+      priority
+    });
+  } catch (err) {
+    console.error('Error getting AI suggestions:', err);
+    res.status(500).json({ msg: 'Server error' });
+  }
+});
+
 module.exports = router;
