@@ -3,8 +3,6 @@
 import React, { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { motion } from "framer-motion";
-import AnimatedCard from "../../components/AnimatedCard";
-import AnimatedButton from "../../components/AnimatedButton";
 
 interface Complaint {
   _id: string;
@@ -54,20 +52,25 @@ export default function AdminDashboardPage() {
   const updateStatus = async (id: string, status: string) => {
     if (!session) return;
     try {
-      const res = await fetch(`http://localhost:5000/api/complaints/${id}/status`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          "x-auth-token": session.accessToken || "",
-        },
-        body: JSON.stringify({ status }),
-      });
+      const res = await fetch(
+        `http://localhost:5000/api/complaints/${id}/status`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            "x-auth-token": session.accessToken || "",
+          },
+          body: JSON.stringify({ status }),
+        }
+      );
       if (!res.ok) {
         throw new Error("Failed to update status");
       }
       const updatedComplaint = await res.json();
       setComplaints((prev) =>
-        prev.map((complaint) => (complaint._id === id ? updatedComplaint : complaint))
+        prev.map((complaint) =>
+          complaint._id === id ? updatedComplaint : complaint
+        )
       );
     } catch (err) {
       alert(err instanceof Error ? err.message : "Unknown error");
@@ -143,7 +146,8 @@ export default function AdminDashboardPage() {
                       New Complaint: {complaint.title}
                     </p>
                     <p className="text-sm text-gray-500 dark:text-gray-400">
-                      From: {complaint.submittedBy.name} ({complaint.submittedBy.role})
+                      From: {complaint.submittedBy.name} (
+                      {complaint.submittedBy.role})
                     </p>
                     <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">
                       {new Date(complaint.createdAt).toLocaleString()}
@@ -179,104 +183,6 @@ export default function AdminDashboardPage() {
 
           {/* Stats */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-            <AnimatedCard delay={0.1}>
-              <div className="p-6">
-                <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ delay: 0.3, type: "spring", stiffness: 200 }}
-                >
-                  <h3 className="text-lg font-medium text-gray-900 dark:text-white">
-                    Pending Complaints
-                  </h3>
-                  <p className="text-4xl font-bold text-primary mt-2">
-                    {complaints.filter((c) => c.status === "Pending").length}
-                  </p>
-                </motion.div>
-              </div>
-            </AnimatedCard>
-            <AnimatedCard delay={0.2}>
-              <div className="p-6">
-                <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ delay: 0.4, type: "spring", stiffness: 200 }}
-                >
-                  <h3 className="text-lg font-medium text-gray-900 dark:text-white">
-                    Resolved Complaints
-                  </h3>
-                  <p className="text-4xl font-bold text-green-500 mt-2">
-                    {complaints.filter((c) => c.status === "Resolved").length}
-                  </p>
-                </motion.div>
-              </div>
-            </AnimatedCard>
-          </div>
-
-          {/* Chart + Resolution Rate */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-            <AnimatedCard delay={0.3}>
-              <div className="p-6">
-                <motion.div
-                  initial={{ x: -20, opacity: 0 }}
-                  animate={{ x: 0, opacity: 1 }}
-                  transition={{ delay: 0.5 }}
-                >
-                  <h3 className="text-lg font-medium text-gray-900 dark:text-white">
-                    Complaint Submission Trends
-                  </h3>
-                  <motion.p
-                    className="text-3xl font-bold text-gray-900 dark:text-white mt-2"
-                    initial={{ scale: 0.8 }}
-                    animate={{ scale: 1 }}
-                    transition={{ delay: 0.7, type: "spring" }}
-                  >
-                    +15%
-                  </motion.p>
-                  <p className="text-sm text-green-500 font-medium">Last 30 Days</p>
-                </motion.div>
-              </div>
-            </AnimatedCard>
-
-            <AnimatedCard delay={0.4}>
-              <div className="p-6">
-                <motion.div
-                  initial={{ x: 20, opacity: 0 }}
-                  animate={{ x: 0, opacity: 1 }}
-                  transition={{ delay: 0.6 }}
-                >
-                  <h3 className="text-lg font-medium text-gray-900 dark:text-white">
-                    Resolution Rates
-                  </h3>
-                  <motion.p
-                    className="text-3xl font-bold text-gray-900 dark:text-white mt-2"
-                    initial={{ scale: 0.8 }}
-                    animate={{ scale: 1 }}
-                    transition={{ delay: 0.8, type: "spring" }}
-                  >
-                    85%
-                  </motion.p>
-                  <p className="text-sm text-green-500 font-medium">
-                    +5% vs last month
-                  </p>
-                </motion.div>
-              </div>
-            </AnimatedCard>
-          </div>
-
-          {/* Complaints Table */}
-          <AnimatedCard delay={0.5}>
-            <div className="p-4 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center">
-              <h3 className="text-lg font-medium text-gray-900 dark:text-white">
-                All Complaints
-              </h3>
-              <AnimatedButton>
-                <span className="flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-white text-sm font-medium">
-                  <span className="material-symbols-outlined text-base">add</span>{" "}
-                  New Complaint
-                </span>
-              </AnimatedButton>
-            </div>
             <div className="overflow-x-auto">
               <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                 <thead className="text-xs text-gray-700 dark:text-gray-400 uppercase bg-gray-50 dark:bg-gray-800">
@@ -316,7 +222,8 @@ export default function AdminDashboardPage() {
                       <td className="px-6 py-4">
                         <span
                           className={`inline-flex px-2.5 py-0.5 rounded text-xs font-medium ${
-                            complaint.urgency === "High" || complaint.urgency === "Critical"
+                            complaint.urgency === "High" ||
+                            complaint.urgency === "Critical"
                               ? "bg-red-100 text-red-800"
                               : complaint.urgency === "Medium"
                               ? "bg-yellow-100 text-yellow-800"
@@ -326,14 +233,18 @@ export default function AdminDashboardPage() {
                           {complaint.urgency}
                         </span>
                       </td>
-                      <td className="px-6 py-4">{complaint.submittedBy.name}</td>
+                      <td className="px-6 py-4">
+                        {complaint.submittedBy.name}
+                      </td>
                       <td className="px-6 py-4">
                         {new Date(complaint.createdAt).toLocaleDateString()}
                       </td>
                       <td className="px-6 py-4">
                         <select
                           value={complaint.status}
-                          onChange={(e) => updateStatus(complaint._id, e.target.value)}
+                          onChange={(e) =>
+                            updateStatus(complaint._id, e.target.value)
+                          }
                           className="rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-background-dark/50 py-1 px-2 text-sm"
                         >
                           <option value="Pending">Pending</option>
