@@ -183,6 +183,101 @@ export default function AdminDashboardPage() {
 
           {/* Stats */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <motion.div
+              className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg rounded-2xl shadow-2xl p-8 border border-white/20 dark:border-gray-700/50"
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ delay: 0.3, type: "spring", stiffness: 200 }}
+            >
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+                Pending Complaints 📋
+              </h3>
+              <p className="text-5xl font-black bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">
+                {complaints.filter((c) => c.status === "Pending").length}
+              </p>
+            </motion.div>
+            <motion.div
+              className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg rounded-2xl shadow-2xl p-8 border border-white/20 dark:border-gray-700/50"
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ delay: 0.4, type: "spring", stiffness: 200 }}
+            >
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+                Resolved Complaints ✅
+              </h3>
+              <p className="text-5xl font-black bg-gradient-to-r from-green-600 to-teal-600 bg-clip-text text-transparent">
+                {complaints.filter((c) => c.status === "Resolved").length}
+              </p>
+            </motion.div>
+          </div>
+
+          {/* Chart + Resolution Rate */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+            <motion.div
+              className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg rounded-2xl shadow-2xl p-8 border border-white/20 dark:border-gray-700/50"
+              initial={{ x: -20, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ delay: 0.5 }}
+            >
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+                Complaint Submission Trends 📈
+              </h3>
+              <motion.p
+                className="text-5xl font-black bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2"
+                initial={{ scale: 0.8 }}
+                animate={{ scale: 1 }}
+                transition={{ delay: 0.7, type: "spring" }}
+              >
+                +15%
+              </motion.p>
+              <p className="text-lg text-green-600 dark:text-green-400 font-semibold">
+                Last 30 Days 🚀
+              </p>
+            </motion.div>
+
+            <motion.div
+              className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg rounded-2xl shadow-2xl p-8 border border-white/20 dark:border-gray-700/50"
+              initial={{ x: 20, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ delay: 0.6 }}
+            >
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+                Resolution Rates 📊
+              </h3>
+              <motion.p
+                className="text-5xl font-black bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-2"
+                initial={{ scale: 0.8 }}
+                animate={{ scale: 1 }}
+                transition={{ delay: 0.8, type: "spring" }}
+              >
+                85%
+              </motion.p>
+              <p className="text-lg text-green-600 dark:text-green-400 font-semibold">
+                +5% vs last month 🎯
+              </p>
+            </motion.div>
+          </div>
+
+          {/* Complaints Table */}
+          <motion.div
+            className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-lg rounded-3xl shadow-2xl border border-white/30 dark:border-gray-700/50"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+          >
+            <div className="p-6 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center">
+              <h3 className="text-3xl font-bold text-gray-900 dark:text-white">
+                All Complaints 📋
+              </h3>
+              <motion.button
+                className="flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-full hover:from-blue-600 hover:to-purple-600 transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:-translate-y-1"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <span className="text-xl">➕</span>
+                <span className="font-bold">New Complaint</span>
+              </motion.button>
+            </div>
             <div className="overflow-x-auto">
               <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                 <thead className="text-xs text-gray-700 dark:text-gray-400 uppercase bg-gray-50 dark:bg-gray-800">
@@ -257,7 +352,7 @@ export default function AdminDashboardPage() {
                 </tbody>
               </table>
             </div>
-          </AnimatedCard>
+          </motion.div>
         </div>
       </main>
     </div>
