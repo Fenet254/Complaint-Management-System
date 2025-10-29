@@ -255,15 +255,13 @@ export default function StudentComplaintForm() {
                     className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                   >
                     <option value="">Select Complaint Type</option>
-                    <option value="Academic">Academic Issues</option>
-                    <option value="Facilities">
-                      Facilities & Infrastructure
-                    </option>
-                    <option value="Administrative">Administrative</option>
-                    <option value="Financial">Financial</option>
-                    <option value="Harassment">Harassment/Bullying</option>
-                    <option value="Technology">Technology/IT Issues</option>
-                    <option value="Other">Other</option>
+                    <option value="academic">Academic Issues</option>
+                    <option value="facilities">Facilities & Infrastructure</option>
+                    <option value="admin">Administrative</option>
+                    <option value="financial">Financial</option>
+                    <option value="harassment">Harassment/Bullying</option>
+                    <option value="tech">Technology/IT Issues</option>
+                    <option value="other">Other</option>
                   </select>
                 </div>
                 <div>
